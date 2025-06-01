@@ -15,7 +15,7 @@ function TrendingToggle({ value, onChange }: Props) {
             onValueChange={(val) => {
                 if (val) onChange(val);
             }}
-            className="border border-blue-900 rounded-full overflow-hidden"
+            className="border border-blue-900 rounded-full overflow-hidden h-[30px]"
         >
             <ToggleGroupItem
                 value="day"
