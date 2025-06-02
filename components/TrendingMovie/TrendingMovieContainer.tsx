@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from 'react'
 import TrendingMovieList from './TrendingMovieList'
 import TrendingToggle from './TrendingToggle'
-import { Skeleton } from '../ui/skeleton'
 import TrendingMovieListLoading from './TrendingMovieListLoading'
+import { MovieProps, ResultMovieProps } from '@/app/types/MovieTypes'
+
+
 
 const TrendingMovieContainer = () => {
 
     const [timeWindow, setTimeWindow] = useState('day')
-    const [trendingMovies, setTrendingMovies] = useState([])
+    const [trendingMovies, setTrendingMovies] = useState<Array<MovieProps>>([])
     const [loading, setLoading] = useState(true);
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
 
@@ -20,7 +22,7 @@ const TrendingMovieContainer = () => {
                 const res = await fetch(
                     `https://api.themoviedb.org/3/trending/movie/${timeWindow}?api_key=${apiKey}`
                 );
-                const movies = await res.json();
+                const movies: ResultMovieProps = await res.json();
                 setTrendingMovies(movies.results)
                 setLoading(false)
             } catch (error) {

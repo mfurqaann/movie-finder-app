@@ -1,15 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import TrendingToggle from '../TrendingMovie/TrendingToggle'
-import TrendingMovieListLoading from '../TrendingMovie/TrendingMovieListLoading'
-import TrendingMovieList from '../TrendingMovie/TrendingMovieList'
 import PopularMovieList from './PopularMovieList'
 import PopularToggle from './PopularToggle'
 import PopularMovieListLoading from './PopularMovieListLoading'
+import { MovieProps, ResultMovieProps } from '@/app/types/MovieTypes'
+
 
 const PopularMovieContainer = () => {
     const [type, setType] = useState('tv')
-    const [popularMovies, setPopularMovies] = useState([])
+    const [popularMovies, setPopularMovies] = useState<Array<MovieProps>>([])
     const [loading, setLoading] = useState(true);
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
 
@@ -20,7 +19,7 @@ const PopularMovieContainer = () => {
                 const res = await fetch(
                     `https://api.themoviedb.org/3/${type}/popular?api_key=${apiKey}&language=en-US&page=1`
                 );
-                const movies = await res.json();
+                const movies: ResultMovieProps = await res.json();
                 setPopularMovies(movies.results)
                 setLoading(false)
             } catch (error) {
@@ -40,7 +39,7 @@ const PopularMovieContainer = () => {
             <div>
                 {loading ?
                     <PopularMovieListLoading />
-                    : <PopularMovieList movies={popularMovies} />}
+                    : <PopularMovieList movies={popularMovies} type={type} />}
             </div>
         </div>
     )
