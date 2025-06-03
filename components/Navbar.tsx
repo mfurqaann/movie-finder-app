@@ -13,30 +13,13 @@ const Navbar = () => {
         <div className='flex justify-between'>
             <div className='flex gap-x-4'>
                 <div className='text-2xl'>Movie App</div>
-                <DropdownMenu>
-                    <DropdownMenuTrigger className='text-2xl'>Movies</DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                        <DropdownMenuItem>Billing</DropdownMenuItem>
-                        <DropdownMenuItem>Team</DropdownMenuItem>
-                        <DropdownMenuItem>Subscription</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-                <DropdownMenu>
-                    <DropdownMenuTrigger className='text-2xl'>TV Shows</DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Profile</DropdownMenuItem>
-                        <DropdownMenuItem>Billing</DropdownMenuItem>
-                        <DropdownMenuItem>Team</DropdownMenuItem>
-                        <DropdownMenuItem>Subscription</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className='text-2xl'>Home</div>
+
             </div>
-            <div className=''>right</div>
+            <div className='flex gap-3'>
+                <div className=''>dark mode</div>
+                <div className=''>search component</div>
+            </div>
         </div>
     )
 }

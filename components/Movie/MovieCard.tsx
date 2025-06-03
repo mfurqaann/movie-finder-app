@@ -9,11 +9,12 @@ import { CardProps, MovieCardProps } from '@/app/types/MovieTypes'
 const MovieCard = ({ movie, type }: MovieCardProps) => {
     const displayTitle = type === "tv" ? movie.name : movie.title
     const displayDate = type === "tv" ? movie.first_air_date : movie.release_date
+    const pathToDetail = type === "tv" ? `/tv/${movie.id}` : `/movie/${movie.id}`
     return (
         <div
             className="relative shrink-0 w-52 rounded-xl space-y-2"
         >
-            <Link href={{ pathname: `/movie/${movie.id}` }}>
+            <Link href={{ pathname: pathToDetail }}>
                 <Image
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                     alt={displayTitle || "No Title"}

@@ -5,22 +5,24 @@ import React from 'react'
 
 interface Props {
     movie: any,
-    image: any
+    image: any,
+    type: string
 }
 
-const HeaderDetail = ({ movie, image }: Props) => {
+const HeaderDetail = ({ movie, image, type }: Props) => {
+    const displayTitle = type === "tv" ? movie.name : movie.title
     return (
         <div className='relative z-10 flex gap-4 w-full h-full p-10'>
             {/* Poster Image */}
             <div className='w-[300px] relative aspect-[2/3]'>
-                <Image alt={movie.title}
+                <Image alt={displayTitle || "No Title"}
                     fill src={image}
                     className='object-cover rounded' />
             </div>
 
             <div className='flex flex-col justify-evenly w-[60%]'>
                 <div className='title'>
-                    <p className='text-2xl text-white font-bold'>{movie.title}</p>
+                    <p className='text-2xl text-white font-bold'>{displayTitle}</p>
                     <div className='detail'>
                         <p className='text-white'>
                             {format(new Date(movie.first_air_date ? movie.first_air_date : movie.release_date), "d MMMM yyyy", { locale: id })}
