@@ -1,3 +1,5 @@
+import { MovieCardProps } from "./MovieTypes";
+
 export interface CastType {
     id: number;
     profile_path: string;
@@ -17,4 +19,8 @@ export interface VideoItem {
     id: number;
     name: string;
     key: string
+}
+
+export interface RecommendationsType {
+    results: Array<MovieCardProps>
 }

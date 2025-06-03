@@ -1,7 +1,8 @@
 import React from 'react'
 import MovieCard from '../Movie/MovieCard';
+import { RecommendationsType } from '@/app/types/DetailMovieTypes';
 
-const Recommendations = ({ videos }: any) => {
+const Recommendations = ({ videos }: { videos: RecommendationsType }) => {
     const videoDetails = videos.results
     if (videoDetails.length === 0) {
         return <p className='mt-5 text-xl font-bold'>No videos available</p>;
