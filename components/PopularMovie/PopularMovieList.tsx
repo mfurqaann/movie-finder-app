@@ -1,12 +1,9 @@
-import Image from 'next/image'
 import React from 'react'
-import { format } from 'date-fns'
-import { id } from 'date-fns/locale'
-import { CardProps } from '@/app/types/MovieTypes'
+import { MovieListProps } from '@/app/types/MovieTypes'
 import MovieCard from '../Movie/MovieCard'
 
 
-const PopularMovieList = ({ movies, type }: CardProps) => {
+const PopularMovieList = ({ movies, type }: MovieListProps) => {
     return (
         <div className="overflow-x-auto scrollbar-hide mt-5">
             <div className="flex gap-4 snap-x snap-mandatory">

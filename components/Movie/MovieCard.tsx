@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
-import { CardProps, MovieCardProps } from '@/app/types/MovieTypes'
+import { MovieCardProps } from '@/app/types/MovieTypes'
 
 
 const MovieCard = ({ movie, type }: MovieCardProps) => {
@@ -23,7 +23,7 @@ const MovieCard = ({ movie, type }: MovieCardProps) => {
                     className="rounded-lg object-cover"
                 />
             </Link>
-            <div className="text-sm font-semibold">{displayTitle}</div>
+            <div className="text-sm mt-3 font-semibold">{displayTitle}</div>
             <div className="text-xs text-muted-foreground">{format(new Date(displayDate || "01-01-1970"), "d MMMM yyyy", { locale: id })
             }</div>
             <div className="absolute top-0 right-0 text-xs bg-green-500 text-white w-fit px-2 py-1 rounded-full">

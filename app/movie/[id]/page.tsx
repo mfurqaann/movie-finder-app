@@ -3,6 +3,9 @@ import React from 'react'
 import Image from 'next/image'
 import Videos from '@/components/Videos/Videos';
 import Recommendations from '@/components/Recommendations/Recommendations';
+import { CastType, CreditsType, VideoTrailersType } from '@/app/types/DetailMovieTypes';
+import CastCard from '@/components/Cast/CreditsCast';
+import CreditsCast from '@/components/Cast/CreditsCast';
 
 const getMovie = async (id: number) => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
@@ -15,31 +18,35 @@ const getMovie = async (id: number) => {
     }
 }
 
-const getCredits = async (movie_id: any) => {
+const getCredits = async (movie_id: number): Promise<CreditsType> => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
         const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${apiKey}`)
+        if (!res.ok) {
+            throw new Error(`Failed to fetch trending movies: ${res.status}`)
+        }
         return await res.json();
     } catch (error) {
         console.error(error)
+        return { cast: [] }
     }
 }
 
-const getVideoTrailers = async (movie_id: any) => {
+const getVideoTrailers = async (movie_id: number): Promise<VideoTrailersType> => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
         const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${apiKey}`)
         return await res.json();
     } catch (error) {
         console.error(error)
+        return { results: [] }
     }
 }
 
-const getVideoRecommendations = async (movie_id: any) => {
+const getVideoRecommendations = async (movie_id: number) => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
         const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${apiKey}`)
-
         return await res.json();
     } catch (error) {
         console.error(error)
@@ -54,8 +61,7 @@ const MovieDetail = async (props: {
     const movie = await getMovie(movieId)
     const credits = await getCredits(movieId)
     const videoTrailers = await getVideoTrailers(movieId)
-    const videoRecommendations = await getVideoRecommendations(movieId)
-    console.log(videoRecommendations)
+    const videoRecommendations = await getVideoRecommendations(movieId);
     const image = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     const backdropImage = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`
     const profileImage = 'https://image.tmdb.org/t/p/w500'
@@ -72,35 +78,12 @@ const MovieDetail = async (props: {
             </div>
             {/* Top Billed Cast */}
             <div className='container mx-auto px-10'>
-                <p className='mt-5 text-xl font-bold'>Top Billed Cast</p>
-                <div className="flex gap-4 snap-x snap-mandatory overflow-x-auto scrollbar-hide mt-5">
-                    <div className='flex gap-4 snap-x snap-mandatory'>
-                        {credits.cast.map((cast: any) => {
-                            const displayProfileImage = cast.profile_path ? `${profileImage}${cast.profile_path}` : "/images/unknown_pic.jpg"
-                            return (
-                                <div key={cast.id} className='relative shrink-0 w-[138px] rounded-xl'>
-                                    <Image
-                                        src={displayProfileImage}
-                                        alt={cast.name}
-                                        width={208}
-                                        height={312}
-                                        className="rounded-lg object-cover"
-                                    />
-
-
-                                    <p className='mt-2 font-bold'>{cast.name}</p>
-                                    <p className='mt-1 text-sm'>{cast.character}</p>
-                                </div>
-                            )
-                        })}
-                    </div>
-
-                </div>
+                <CreditsCast credits={credits.cast} />
             </div>
 
             {/* Videos */}
             <div className='container mx-auto px-10'>
-                <Videos videos={videoTrailers} />
+                <Videos results={videoTrailers.results} />
             </div>
 
             {/* Recommendations */}

@@ -13,7 +13,7 @@ export interface ResultMovieProps {
 }
 
 
-export interface CardProps {
+export interface MovieListProps {
     movies: Array<MovieProps>;
     type?: string
 }
