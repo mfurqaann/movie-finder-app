@@ -2,6 +2,7 @@ import HeaderDetail from '@/components/DetailMovie/HeaderDetail';
 import React from 'react'
 import Image from 'next/image'
 import Videos from '@/components/Videos/Videos';
+import Recommendations from '@/components/Recommendations/Recommendations';
 
 const getMovie = async (id: number) => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
@@ -24,10 +25,21 @@ const getCredits = async (movie_id: any) => {
     }
 }
 
-const getVideos = async (movie_id: any) => {
+const getVideoTrailers = async (movie_id: any) => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
         const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${apiKey}`)
+        return await res.json();
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+const getVideoRecommendations = async (movie_id: any) => {
+    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${apiKey}`)
+
         return await res.json();
     } catch (error) {
         console.error(error)
@@ -41,9 +53,9 @@ const MovieDetail = async (props: {
     const movieId = (await props.params).id
     const movie = await getMovie(movieId)
     const credits = await getCredits(movieId)
-    const videos = await getVideos(movieId)
-
-
+    const videoTrailers = await getVideoTrailers(movieId)
+    const videoRecommendations = await getVideoRecommendations(movieId)
+    console.log(videoRecommendations)
     const image = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     const backdropImage = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`
     const profileImage = 'https://image.tmdb.org/t/p/w500'
@@ -88,7 +100,12 @@ const MovieDetail = async (props: {
 
             {/* Videos */}
             <div className='container mx-auto px-10'>
-                <Videos videos={videos} />
+                <Videos videos={videoTrailers} />
+            </div>
+
+            {/* Recommendations */}
+            <div className='container mx-auto px-10'>
+                <Recommendations videos={videoRecommendations} />
             </div>
         </div>
     )
