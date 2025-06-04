@@ -5,10 +5,11 @@ import Recommendations from '@/components/Recommendations/Recommendations';
 import { CreditsType, RecommendationsType, VideoTrailersType } from '@/app/types/DetailMovieTypes';
 import CreditsCast from '@/components/Cast/CreditsCast';
 
+const API_KEY = process.env.API_KEY
+
 const getMovie = async (id: number) => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
         return await res.json();
 
     } catch (error) {
@@ -17,9 +18,8 @@ const getMovie = async (id: number) => {
 }
 
 const getCredits = async (movie_id: number): Promise<CreditsType> => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/credits?api_key=${API_KEY}`)
         if (!res.ok) {
             throw new Error(`Failed to fetch trending movies: ${res.status}`)
         }
@@ -31,9 +31,8 @@ const getCredits = async (movie_id: number): Promise<CreditsType> => {
 }
 
 const getVideoTrailers = async (movie_id: number): Promise<VideoTrailersType> => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${API_KEY}`)
         return await res.json();
     } catch (error) {
         console.error(error)
@@ -42,9 +41,8 @@ const getVideoTrailers = async (movie_id: number): Promise<VideoTrailersType> =>
 }
 
 const getVideoRecommendations = async (movie_id: number): Promise<RecommendationsType> => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${movie_id}/recommendations?api_key=${API_KEY}`)
         return await res.json();
     } catch (error) {
         console.error(error)

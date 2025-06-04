@@ -4,10 +4,12 @@ import CreditsCast from '@/components/Cast/CreditsCast';
 import { RecommendationsType } from '@/app/types/DetailMovieTypes';
 import Recommendations from '@/components/Recommendations/Recommendations';
 
+const API_KEY = process.env.API_KEY
+
+
 const getMovie = async (id: number) => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}`)
         return await res.json();
 
     } catch (error) {
@@ -16,9 +18,8 @@ const getMovie = async (id: number) => {
 }
 
 const getCredits = async (movie_id: number) => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/tv/${movie_id}/credits?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/tv/${movie_id}/credits?api_key=${API_KEY}`)
         return await res.json();
     } catch (error) {
         console.error(error)
@@ -26,9 +27,8 @@ const getCredits = async (movie_id: number) => {
 }
 
 const getVideoRecommendations = async (movie_id: number): Promise<RecommendationsType> => {
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
-        const res = await fetch(`https://api.themoviedb.org/3/tv/${movie_id}/recommendations?api_key=${apiKey}`)
+        const res = await fetch(`https://api.themoviedb.org/3/tv/${movie_id}/recommendations?api_key=${API_KEY}`)
         return await res.json();
     } catch (error) {
         console.error(error)

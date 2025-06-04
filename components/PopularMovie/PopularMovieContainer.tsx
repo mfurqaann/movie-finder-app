@@ -10,14 +10,14 @@ const PopularMovieContainer = () => {
     const [type, setType] = useState('tv')
     const [popularMovies, setPopularMovies] = useState<MovieProps[]>([])
     const [loading, setLoading] = useState(true);
-    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
+    const API_KEY = process.env.API_KEY
 
     useEffect(() => {
         setLoading(true)
         const fetchPopularMovies = async () => {
             try {
                 const res = await fetch(
-                    `https://api.themoviedb.org/3/${type}/popular?api_key=${apiKey}&language=en-US&page=1`
+                    `https://api.themoviedb.org/3/${type}/popular?api_key=${API_KEY}&language=en-US&page=1`
                 );
                 const movies: ResultMovieProps = await res.json();
                 setPopularMovies(movies.results)

@@ -6,7 +6,7 @@ import TrendingToggle from './TrendingToggle'
 import TrendingMovieListLoading from './TrendingMovieListLoading'
 import { MovieProps, ResultMovieProps } from '@/app/types/MovieTypes'
 
-const API_KEY = 'c888f8286ed76434eb3e9e865e1d467e'
+const API_KEY = process.env.API_KEY
 
 const fetchTrendingMovies = async (timeWindow: string): Promise<MovieProps[]> => {
     try {
