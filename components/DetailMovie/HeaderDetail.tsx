@@ -1,15 +1,10 @@
+import { Genre, MovieDetailType } from '@/app/types/DetailMovieTypes'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
 import Image from 'next/image'
 import React from 'react'
 
-interface Props {
-    movie: any,
-    image: any,
-    type: string
-}
-
-const HeaderDetail = ({ movie, image, type }: Props) => {
+const HeaderDetail = ({ movie, image, type }: MovieDetailType) => {
     const displayTitle = type === "tv" ? movie.name : movie.title
     return (
         <div className='relative z-10 flex gap-4 w-full h-full p-10'>
@@ -25,9 +20,9 @@ const HeaderDetail = ({ movie, image, type }: Props) => {
                     <p className='text-2xl text-white font-bold'>{displayTitle}</p>
                     <div className='detail'>
                         <p className='text-white'>
-                            {format(new Date(movie.first_air_date ? movie.first_air_date : movie.release_date), "d MMMM yyyy", { locale: id })}
+                            {format(new Date(movie.first_air_date ? movie.first_air_date : movie.release_date || '01-01-1970'), "d MMMM yyyy", { locale: id })}
                         </p>
-                        <div className='flex gap-1'>{movie.genres.map((genre: any) => (
+                        <div className='flex gap-1'>{movie.genres.map((genre: Genre) => (
                             <p key={genre.id} className='px-3 py-1 rounded bg-slate-200 text-slate-500'>{genre.name}</p>
                         ))}</div>
                     </div>

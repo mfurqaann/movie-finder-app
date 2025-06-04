@@ -1,6 +1,8 @@
 import HeaderDetail from '@/components/DetailMovie/HeaderDetail';
 import React from 'react'
-import Image from 'next/image'
+import CreditsCast from '@/components/Cast/CreditsCast';
+import { RecommendationsType } from '@/app/types/DetailMovieTypes';
+import Recommendations from '@/components/Recommendations/Recommendations';
 
 const getMovie = async (id: number) => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
@@ -13,13 +15,24 @@ const getMovie = async (id: number) => {
     }
 }
 
-const getCredits = async (movie_id: any) => {
+const getCredits = async (movie_id: number) => {
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
     try {
         const res = await fetch(`https://api.themoviedb.org/3/tv/${movie_id}/credits?api_key=${apiKey}`)
         return await res.json();
     } catch (error) {
         console.error(error)
+    }
+}
+
+const getVideoRecommendations = async (movie_id: number): Promise<RecommendationsType> => {
+    const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
+    try {
+        const res = await fetch(`https://api.themoviedb.org/3/tv/${movie_id}/recommendations?api_key=${apiKey}`)
+        return await res.json();
+    } catch (error) {
+        console.error(error)
+        return { results: [] }
     }
 }
 
@@ -30,6 +43,7 @@ const MovieDetail = async (props: {
     const movieId = (await props.params).id
     const movie = await getMovie(movieId)
     const credits = await getCredits(movieId)
+    const videoRecommendations = await getVideoRecommendations(movieId);
     const image = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     const backdropImage = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`
     const type = "tv"
@@ -45,23 +59,11 @@ const MovieDetail = async (props: {
             </div>
             {/* Top Billed Cast */}
             <div className='container mx-auto px-10'>
-                <p className='mt-5 text-xl font-bold'>Top Billed Cast</p>
-                <div className="overflow-x-auto scrollbar-hide mt-5">
-                    <div className='flex gap-4 snap-x snap-mandatory'>
-                        {credits.cast.map((cast: any) => (
-                            <div key={cast.id}>
-                                <Image
-                                    src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-                                    alt={cast.name}
-                                    width={208}
-                                    height={312}
-                                    className="rounded-lg object-cover"
-                                />
-                            </div>
-                        ))}
-                    </div>
+                <CreditsCast credits={credits.cast} />
+            </div>
 
-                </div>
+            <div className='container mx-auto px-10'>
+                <Recommendations type='tv' videos={videoRecommendations} />
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import { MovieProps, ResultMovieProps } from '@/app/types/MovieTypes'
 
 const PopularMovieContainer = () => {
     const [type, setType] = useState('tv')
-    const [popularMovies, setPopularMovies] = useState<Array<MovieProps>>([])
+    const [popularMovies, setPopularMovies] = useState<MovieProps[]>([])
     const [loading, setLoading] = useState(true);
     const apiKey = 'c888f8286ed76434eb3e9e865e1d467e'
 
@@ -33,7 +33,7 @@ const PopularMovieContainer = () => {
     return (
         <div className='mt-10'>
             <div>
-                <div className='text-2xl font-bold my-3'>What's Popular</div>
+                <div className='text-2xl font-bold my-3'>What&apos;s Popular</div>
                 <PopularToggle value={type} onChange={setType} />
             </div>
             <div>

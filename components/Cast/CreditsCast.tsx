@@ -2,7 +2,7 @@ import { CastType } from '@/app/types/DetailMovieTypes'
 import Image from 'next/image'
 import React from 'react'
 
-const CreditsCast = ({ credits }: { credits: Array<CastType> }) => {
+const CreditsCast = ({ credits }: { credits: CastType[] }) => {
     const profileImage = 'https://image.tmdb.org/t/p/w500'
 
     return (

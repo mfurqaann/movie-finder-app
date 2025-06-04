@@ -1,4 +1,24 @@
-import { MovieCardProps } from "./MovieTypes";
+import { MovieProps } from "./MovieTypes";
+
+export interface Genre {
+    id: number;
+    name: string
+}
+
+export interface MovieBase {
+    name?: string;
+    title?: string;
+    first_air_date?: string;
+    release_date?: string;
+    genres: Genre[];
+    tagline: string;
+    overview: string;
+}
+export interface MovieDetailType {
+    movie: MovieBase;
+    image: string;
+    type: string;
+}
 
 export interface CastType {
     id: number;
@@ -8,12 +28,9 @@ export interface CastType {
 }
 
 export interface CreditsType {
-    cast: Array<CastType>
+    cast: CastType[]
 }
 
-export interface VideoTrailersType {
-    results: Array<VideoItem>;
-}
 
 export interface VideoItem {
     id: number;
@@ -21,6 +38,11 @@ export interface VideoItem {
     key: string
 }
 
+
+export interface VideoTrailersType {
+    results: VideoItem[];
+}
+
 export interface RecommendationsType {
-    results: Array<MovieCardProps>
+    results: MovieProps[]
 }

@@ -5,20 +5,20 @@ export interface MovieProps {
     poster_path: string;
     vote_average: number;
     first_air_date?: string;
-    release_date?: string
+    release_date?: string;
 }
 
 export interface ResultMovieProps {
-    results: Array<MovieProps>
+    results: MovieProps[];
 }
 
 
 export interface MovieListProps {
-    movies: Array<MovieProps>;
-    type?: string
+    movies: MovieProps[];
+    type?: string;
 }
 
 export interface MovieCardProps {
     movie: MovieProps;
-    type?: string
+    type?: string;
 }
