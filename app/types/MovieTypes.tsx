@@ -1,3 +1,5 @@
+import { MediaType } from "../enums/MediaTypeEnum";
+
 export interface MovieProps {
     id: number;
     name?: string;
@@ -15,10 +17,11 @@ export interface ResultMovieProps {
 
 export interface MovieListProps {
     movies: MovieProps[];
-    type?: string;
+    type?: MediaType
 }
+
 
 export interface MovieCardProps {
     movie: MovieProps;
-    type?: string;
+    type?: MediaType;
 }

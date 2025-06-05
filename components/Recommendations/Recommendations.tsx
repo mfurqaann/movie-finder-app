@@ -2,8 +2,9 @@ import React from 'react'
 import MovieCard from '../Movie/MovieCard';
 import { RecommendationsType } from '@/app/types/DetailMovieTypes';
 import { MovieProps } from '@/app/types/MovieTypes';
+import { MediaType } from '@/app/enums/MediaTypeEnum';
 
-const Recommendations = ({ videos, type }: { videos: RecommendationsType, type?: string }) => {
+const Recommendations = ({ videos, type }: { videos: RecommendationsType, type?: MediaType }) => {
     const videoDetails = videos.results
     if (videoDetails.length === 0) {
         return <p className='mt-5 text-xl font-bold'>No videos available</p>;

@@ -1,10 +1,11 @@
 import React from 'react'
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { MediaType } from '@/app/enums/MediaTypeEnum';
 
 
 interface Props {
     value: string;
-    onChange: (value: string) => void;
+    onChange: (value: MediaType) => void;
 }
 
 function PopularToggle({ value, onChange }: Props) {
@@ -13,7 +14,7 @@ function PopularToggle({ value, onChange }: Props) {
             type="single"
             value={value}
             onValueChange={(val) => {
-                if (val) onChange(val);
+                if (val) onChange(val as MediaType);
             }}
             className="border border-blue-900 rounded-full overflow-hidden h-[30px]"
         >

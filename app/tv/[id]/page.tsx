@@ -3,6 +3,7 @@ import React from 'react'
 import CreditsCast from '@/components/Cast/CreditsCast';
 import { RecommendationsType } from '@/app/types/DetailMovieTypes';
 import Recommendations from '@/components/Recommendations/Recommendations';
+import { MediaType } from '@/app/enums/MediaTypeEnum';
 
 const API_KEY = process.env.NEXT_PUBLIC_THE_MOVIE_API_KEY
 
@@ -46,7 +47,6 @@ const MovieDetail = async (props: {
     const videoRecommendations = await getVideoRecommendations(movieId);
     const image = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     const backdropImage = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`
-    const type = "tv"
     return (
         <div>
             <div className='relative w-full h-full bg-cover bg-center bg-no-repeat'
@@ -55,7 +55,7 @@ const MovieDetail = async (props: {
                 <div className="absolute inset-0 bg-black/60" />
 
                 {/* Content Header */}
-                <HeaderDetail movie={movie} image={image} type={type} />
+                <HeaderDetail movie={movie} image={image} type={MediaType.Tv} />
             </div>
             {/* Top Billed Cast */}
             <div className='container mx-auto px-10'>
@@ -63,7 +63,7 @@ const MovieDetail = async (props: {
             </div>
 
             <div className='container mx-auto px-10'>
-                <Recommendations type='tv' videos={videoRecommendations} />
+                <Recommendations type={MediaType.Tv} videos={videoRecommendations} />
             </div>
         </div>
     )
