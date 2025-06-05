@@ -10,7 +10,7 @@ const PopularMovieContainer = () => {
     const [type, setType] = useState('tv')
     const [popularMovies, setPopularMovies] = useState<MovieProps[]>([])
     const [loading, setLoading] = useState(true);
-    const API_KEY = process.env.API_KEY
+    const API_KEY = process.env.NEXT_PUBLIC_THE_MOVIE_API_KEY
 
     useEffect(() => {
         setLoading(true)

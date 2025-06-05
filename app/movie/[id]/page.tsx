@@ -5,7 +5,7 @@ import Recommendations from '@/components/Recommendations/Recommendations';
 import { CreditsType, RecommendationsType, VideoTrailersType } from '@/app/types/DetailMovieTypes';
 import CreditsCast from '@/components/Cast/CreditsCast';
 
-const API_KEY = process.env.API_KEY
+const API_KEY = process.env.NEXT_PUBLIC_THE_MOVIE_API_KEY
 
 const getMovie = async (id: number) => {
     try {
