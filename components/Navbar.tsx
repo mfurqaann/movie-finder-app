@@ -17,6 +17,11 @@ const Navbar = () => {
     const { theme, setTheme } = useTheme()
     const [searchQuery, setSearchQuery] = useState('')
     const [searchMovies, setSearchMovies] = useState<NormalizedMovie[]>([])
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
 
     useEffect(() => {
         if (searchQuery.trim() === '') {
@@ -65,7 +70,7 @@ const Navbar = () => {
         return () => clearTimeout(debounce)
     }, [searchQuery])
 
-
+    if (!mounted) return null;
 
     return (
         <div className='flex justify-between items-center px-6 py-4 shadow-md bg-background text-foreground'>
