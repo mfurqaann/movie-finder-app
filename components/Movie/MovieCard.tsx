@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
 import { MovieCardProps } from '@/app/types/MovieTypes'
-import { cn } from '@/lib/utils'
 import { getColor, getPercentage } from '@/app/utils/rating'
 
 

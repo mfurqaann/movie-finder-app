@@ -40,7 +40,7 @@ const HeaderDetail = ({ movie, image, type }: MovieDetailType) => {
                 </div>
 
                 {movie.tagline && (
-                    <p className="italic text-white text-sm md:text-base mb-4">"{movie.tagline}"</p>
+                    <p className="italic text-white text-sm md:text-base mb-4">{movie.tagline}</p>
                 )}
 
                 <div className="mb-4">

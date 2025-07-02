@@ -11,7 +11,6 @@ import {
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { MovieProps, NormalizedMovie } from '@/app/types/MovieTypes'
 import { Input } from './ui/input'
-import Image from 'next/image'
 
 const Navbar = () => {
     const { theme, setTheme } = useTheme()
