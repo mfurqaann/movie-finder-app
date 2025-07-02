@@ -2,7 +2,7 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Sun, Moon, Search } from 'lucide-react'
+import { Sun, Moon, Search, X, Menu } from 'lucide-react'
 import {
     Dialog,
     DialogContent,
@@ -18,6 +18,7 @@ const Navbar = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [searchMovies, setSearchMovies] = useState<NormalizedMovie[]>([])
     const [mounted, setMounted] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true)
@@ -73,49 +74,50 @@ const Navbar = () => {
     if (!mounted) return null;
 
     return (
-        <div className='flex justify-between items-center px-6 py-4 shadow-md bg-background text-foreground'>
-            <div className='flex gap-x-6 items-center'>
-                <div className='text-2xl font-bold'>Movie App</div>
-                <div className='text-lg cursor-pointer'>Home</div>
-            </div>
+        <header className="w-full shadow-md bg-background text-foreground sticky top-0 z-50">
+            <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-6 py-3">
+                <div className="flex items-center gap-4">
+                    <div className="text-xl md:text-2xl font-bold tracking-tight">Movie App</div>
 
-            <div className='flex gap-4 items-center'>
-                {/* Dark Mode Toggle */}
-                <button
-                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                    className='p-2 rounded-full hover:bg-muted transition'
-                >
-                    {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                </button>
+                    <nav className="hidden md:flex items-center gap-4 text-sm md:text-base">
+                        <button className="hover:text-primary transition">Home</button>
+                    </nav>
+                </div>
 
-                {/* Search Dialog */}
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <button className='flex items-center gap-2 px-3 py-2 border rounded-md text-sm hover:bg-muted transition'>
-                            <Search size={16} />
-                            <span>Search</span>
-                        </button>
-                    </DialogTrigger>
-                    <DialogContent className='max-w-md'>
-                        <DialogTitle className='text-xl font-semibold mb-4'>Search Movies</DialogTitle>
-                        <Input
-                            type='text'
-                            placeholder='Search by title...'
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
+                <div className="flex items-center gap-3 md:gap-4">
+                    <button
+                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                        className="p-2 rounded-full hover:bg-muted transition"
+                        aria-label="Toggle Theme"
+                    >
+                        {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+                    </button>
 
-                        <div className='space-y-2 max-h-60'>
-                            {searchMovies.length > 0 ? (
-                                <div className="space-y-2 max-h-64 overflow-y-auto">
-                                    {searchMovies.map((item) => (
+                    {/* Search dialog */}
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <button className="flex items-center gap-2 px-3 py-2 border rounded-md text-sm hover:bg-muted transition whitespace-nowrap">
+                                <Search size={16} />
+                                <span className="hidden sm:inline">Search</span>
+                            </button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-md w-full">
+                            <DialogTitle className="text-xl font-semibold mb-4">Search Movies</DialogTitle>
+                            <Input
+                                type="text"
+                                placeholder="Search by title..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <div className="space-y-2 max-h-64 overflow-y-auto mt-4">
+                                {searchMovies.length > 0 ? (
+                                    searchMovies.map((item) => (
                                         <div
                                             key={`${item.media_type}-${item.id}`}
                                             className="flex gap-4 items-center border p-2 rounded-md hover:bg-muted cursor-pointer"
                                         >
-                                            {/* Poster */}
                                             {item.poster_path ? (
-                                                <Image
+                                                <img
                                                     src={`https://image.tmdb.org/t/p/w92${item.poster_path}`}
                                                     alt={item.title}
                                                     className="w-16 h-auto rounded"
@@ -126,25 +128,42 @@ const Navbar = () => {
                                                 </div>
                                             )}
 
-                                            {/* Info */}
                                             <div>
                                                 <div className="font-medium">{item.title}</div>
                                                 <div className="text-sm text-muted-foreground">{item.date}</div>
                                                 <div className="text-xs text-primary/70 uppercase mt-1">
-                                                    {item.media_type === 'movie' ? 'Movie' : 'TV Show'}
+                                                    {item.media_type === "movie" ? "Movie" : "TV Show"}
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
-                                </div>
-                            ) : searchQuery.trim() !== '' ? (
-                                <p className="text-sm text-muted-foreground">No results found.</p>
-                            ) : null}
-                        </div>
-                    </DialogContent>
-                </Dialog>
+                                    ))
+                                ) : searchQuery.trim() !== "" ? (
+                                    <p className="text-sm text-muted-foreground">No results found.</p>
+                                ) : null}
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+
+                    {/* Hamburger Menu */}
+                    <button
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="md:hidden p-2 rounded hover:bg-muted transition"
+                        aria-label="Toggle Menu"
+                    >
+                        {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+                </div>
             </div>
-        </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+                <nav className="md:hidden px-4 pb-4 space-y-2 animate-in fade-in slide-in-from-top-4">
+                    <button className="block w-full text-left px-4 py-2 rounded hover:bg-muted transition">
+                        Home
+                    </button>
+                </nav>
+            )}
+        </header>
     )
 }
 

@@ -32,7 +32,7 @@ const MovieCard = ({ movie, type }: MovieCardProps) => {
                                 }}
                             ></div>
 
-                            <div className="absolute inset-[3px] flex items-center justify-center rounded-full bg-background text-xs md:text-sm text-white font-bold">
+                            <div className="absolute inset-[3px] flex items-center justify-center rounded-full bg-background text-xs md:text-sm font-bold">
                                 {Math.round(movie.vote_average * 10) / 10}
                             </div>
                         </div>
