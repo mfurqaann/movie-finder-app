@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
@@ -5,14 +6,23 @@ import { format } from 'date-fns'
 import { id } from 'date-fns/locale'
 import { MovieCardProps } from '@/app/types/MovieTypes'
 import { getColor, getPercentage } from '@/app/utils/rating'
+import { motion } from 'framer-motion'
 
+const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 },
+}
 
 const MovieCard = ({ movie, type }: MovieCardProps) => {
     const displayTitle = type === "tv" ? movie.name : movie.title
     const displayDate = type === "tv" ? movie.first_air_date : movie.release_date
     const pathToDetail = type === "tv" ? `/tv/${movie.id}` : `/movie/${movie.id}`
     return (
-        <div className="relative shrink-0 w-full sm:w-44 md:w-52 rounded-xl space-y-2">
+        <motion.div className="relative shrink-0 w-full sm:w-44 md:w-52 rounded-xl space-y-2"
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.5, ease: 'easeOut' }}>
             <Link href={{ pathname: pathToDetail }}>
                 <div className="relative overflow-hidden rounded-xl shadow-md hover:scale-105 transition-transform duration-300">
                     <Image
@@ -45,7 +55,7 @@ const MovieCard = ({ movie, type }: MovieCardProps) => {
             <div className="text-xs text-muted-foreground">
                 {format(new Date(displayDate || "01-01-1970"), "d MMMM yyyy", { locale: id })}
             </div>
-        </div>
+        </motion.div>
 
 
     )

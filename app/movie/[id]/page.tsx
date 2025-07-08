@@ -3,7 +3,7 @@ import React from 'react'
 import Videos from '@/components/Videos/Videos';
 import Recommendations from '@/components/Recommendations/Recommendations';
 import { CreditsType, RecommendationsType, VideoTrailersType } from '@/app/types/DetailMovieTypes';
-import CreditsCast from '@/components/Cast/CreditsCast';
+import CreditsCastWrapper from '@/components/Cast/CreditsCastWrapper';
 
 const API_KEY = process.env.NEXT_PUBLIC_THE_MOVIE_API_KEY
 
@@ -74,7 +74,7 @@ const MovieDetail = async (props: {
             </div>
             {/* Top Billed Cast */}
             <div className='container mx-auto px-10'>
-                <CreditsCast credits={credits.cast} />
+                <CreditsCastWrapper credits={credits.cast} />
             </div>
 
             {/* Videos */}
